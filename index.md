@@ -77,7 +77,7 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 
 **Here you need to transferred the evaluate part to a script file `evaluate.py` by yourself.**
 
-### Step 3: Train the CNN as a batch job on Hyak.
+### Step 3: Train the CNN as a batch job on Hyak.<a name="step3"></a>
 
 #### Before we start:
 
@@ -87,7 +87,7 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 
 - Unzip the marcodata with command: `tar -xf ./marcodata.tar.gz`, you will see a folder named `marcodata`. 
 
-#### Step 3-1: Configure the python environment on hyak.<a name="step3-1"></a>
+#### Step 3-1: Configure the python environment on hyak.
 
 **Option1: configure the python environment as a batch job.**
 
@@ -113,7 +113,7 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 
 
 
-### Step 3-2: Train the CNN as a batch job on Hyak.<a name="step3-2"></a>
+### Step 3-2: Train the CNN as a batch job on Hyak.
 
 Now you have your python code, the python environment and the data you need. Now you can start your training .
 
