@@ -113,7 +113,7 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 
 
 
-### Step 3-2: Train the CNN as a batch job on Hyak.
+#### Step 3-2: Train the CNN as a batch job on Hyak.
 
 Now you have your python code, the python environment and the data you need. Now you can start your training .
 
