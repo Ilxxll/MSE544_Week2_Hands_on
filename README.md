@@ -165,7 +165,7 @@ The challenge was to manually train CNN using the interactive node. Completing t
 a. Get an interactive node on hyak:
 
 You can use command:
-- `srun -p compute -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty/bin/bash`
+- `srun -p compute -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty /bin/bash`
 
 The above command will allocate a node from the stf partition.
   
