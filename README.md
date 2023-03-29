@@ -10,9 +10,9 @@ Authors: Ting Cao & [Ziyu Zhang](https://github.com/Ilxxll)
 - [Train a CNN with MARCO data on Hyak](#train)
   - [Step 1: Get familiar with the convolutional neural network.](#step1)
   - [Step 2: Convert the training part into a python script file.](#step2)
-  - [Step 3: Train the CNN on Hyak interactive node.](#step3)
-  - [Step 4: Train the CNN as a batch job on Hyak](#step4)
-  - [Step 5: Evaluate the model](#step5)
+  - [Step 3: Configure Marco1 Environment.](#step3)
+  - [Step 4: Evaluate the model.](#step4)
+  - [Challenge: Train the CNN on Hyak interactive node.](#challenge)
 - [Submission](#submission)
 
 ## Background & Goals for this week's hands-on <a name="background"></a>
@@ -46,9 +46,9 @@ from MARCO data into four categories: `Clear`, `Crystals`, `Other`, `Precipitate
 
 ### Before we start:
 
-Please download: `crystal_image_processing.ipynb`, `marcodata.tar.gz`, `marco.py`, `script` from Canvas
+Please download: `crystal_image_processing.ipynb`, `marcodata.tar.gz`, `marco.py`, `script`,`script_env` from Canvas.
 
-### Step 1: Get familiar with the convolutional neural network..<a name="step1"></a>
+### Step 1: Get familiar with the convolutional neural network.<a name="step1"></a>
 
 The python code is given in the jupyter notebook: `crystal_image_processing.ipynb`. Download it and read the code in it to get familiar with the code.
 
@@ -75,14 +75,31 @@ This is to create an environment named ‘envname’ with all the specified pyth
 
 To train the CNN on Hyak, you will need to copy the code from the jupyter notebook and put them into a python script file. The code up to the training part has been transferred to the python script file `marco.py` for you.
 
-### Step 3: Train the CNN on Hyak interactive node.<a name="step3"></a>
+**Here you need to transferred the evaluate part to a script file `evaluate.py` by yourself.**
 
-a. Upload marcodata.tar.gz, marco.py to Hyak(should work under the directorynamed in your username under /gscratch/stf/ on Hyak)
+### Step 3: Train the CNN as a batch job on Hyak.
 
-b. Unzip the marcodata with command: `tar -xf ./marcodata.tar.gz`, you will see afolder named marcodata
+#### Before we start:
 
-c. Configure the python environment by the following commands:
+- Upload `marcodata.tar.gz`, `marco.py`, `script_env` ,`script`,`evaluate.py` to Hyak.(should work under the directory named in your username under /gscratch/scrubbed on Hyak)
 
+- **Scrubbed administrators clean the file that have not been modifiled within 21 days. So if you want to keep your file and result, remember to download them to your local machine in time.**
+
+- Unzip the marcodata with command: `tar -xf ./marcodata.tar.gz`, you will see a folder named `marcodata`. 
+
+#### Step 3-1: Configure the python environment on hyak.<a name="step3-1"></a>
+
+**Option1: configure the python environment as a batch job.**
+
+- `sbatch script_env`
+   - submit the configure environment job.
+- `squeue -u yourusername`
+  - Check the job in the queue.
+
+**Option2: Manual configure the python environment.**
+
+- `srun -p compute -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty/bin/bash`
+  - You can use command to get an interactive node on hyak:
 - `module load foster/python/miniconda/3.8`
   - This is to load the preinstalled anaconda on Hyak.
 - `conda create -n marco1 keras tensorflow scikit-learn pandas pillow`
@@ -91,53 +108,27 @@ c. Configure the python environment by the following commands:
   - You will need to initiate conda if this is your first time using it on Hyak.
 - `exec bash`
   - Restart bash to enable conda initiation.
-  
-d. Get an interactive node on hyak:
+- Press `ctrl + D`
+  - Exit the current interactive session
 
-You can use command:
-- `srun -p compute -A stf --nodes=1 --ntasks-per-node=4 --time=2:00:00 --mem=100G --pty/bin/bash`
 
-The above command will allocate a node from the stf partition.
-  
-Alternatively, you can use command:
-- `srun -p ckpt -A stf --nodes=1 --ntasks-per-node=4 --time=2:00:00 --mem=100G --pty /bin/bash`
 
-This allows you to use idle resources from other groups across the cluster using the checkpoint partition.
+### Step 3-2: Train the CNN as a batch job on Hyak.<a name="step3-2"></a>
 
-Additional resource about node setting: https://hyak.uw.edu/docs/compute/scheduling-jobs
+Now you have your python code, the python environment and the data you need. Now you can start your training .
 
-e. Set the number of threads can be run at same time:
-- `export OMP_NUM_THREADS=4` 
+a. Change the parameter for the slrum script:
 
-f. Activate the environment you created.
-- `conda activate marco1`
-
-g. run the python script.
-First make sure in your current working directory, there is your marco.py and the folder named marcodata.
-
-Here are 2 options for you to run the python script:
-- Option1: `python3 marco.py > output`
-  - The output from training process will be saved in the file named `output`.
-- Option2: `nohup python3 marco.py > output &`
-  - This will run python script in the background, which allow you to work on any other new command while the script is running.
-  
-h.The CNN model your constructed in marco.py will be saved under the folder `/models` in your current working directory, named `marco.h5`. As the training process going on, you can find the weights of your models saved under the same folder as well. They are named as `marco+number of epoch+validation accuracy+’.hdf5`
-
-### Step 4: Train the CNN as a batch job on Hyak.<a name="step4"></a>
-
-a. Prepare the python code and python environment after logging on to Hyak:
-
-The steps are the same as above **step3.a,b,c**. No need to repeat if you already completed **step3.a,b,c**.
-
-b. Change the parameter for the script:
 - Make sure in your current working directory, there is your `marco.py` and the folder named `marcodata`.
 
 - Prepare the slurm script in this current directory (download the script from canvas first). 
+  - Read the script to get familiar with it.
   - Replace the ‘chdir=’ in the script with the path of this directory. 
   - You may also need to set the ‘time=’ to a value in according to the number of epochs you specified to run in your marco.py.
-  - (Hint: Use `vi` command)
+- (Hint: Use `vi` command)
 
-c. Submit with the command:
+b.Submit with the command:
+
 - `sbatch script`
 
 **Troubleshooting:**
@@ -148,27 +139,63 @@ Traceback (most recent call last):
 File "marco.py", line 1, in <module>
 from tensorflow.keras.callbacks import ReduceLROnPlateau,ModelCheckpoint
 ModuleNotFoundError: No module named 'tensorflow'
-
-Try conda deactivate and activate your environment again. Then submit your job.
   
-d. Check your submitted job in the queue:
+c. Check your submitted job in the queue:
 - `squeue -u yourusername`
   - Change yourusername to your own user name
 
-e. You will find the model and weights following same way in **step3.h** . The output information will be saved in a file named `output`.
+d.The CNN model your constructed in marco.py will be saved under the folder `/models` in your current working directory, named `marco.h5`. As the training process going on, you can find the weights of your models saved under the same folder as well. They are named as `marco+number of epoch+validation accuracy+’.hdf5`
 
-### Step 5: Evaluate the model.<a name="step5"></a>
+Additional resource about node setting: https://hyak.uw.edu/docs/compute/scheduling-jobs
+
+### Step 4: Evaluate the model.<a name="step4"></a>
 
 The final step is to evaluate the accuracy of the model you obtained from previous training steps. 
+  
+It takes 2 scripts to complete this setp. The first script that you need is the `evaluate.py` that you created yourself. The second script requires you to create your own `script_evaluate`. It's very similar to `script`,just a few things need to be changed.
 
-The code has been provided in the ‘Model Evaluation’ part in `crystal_image_processing.ipynb`.
+**Then submit it as batch job.** 
+  
+Note that the df_test is the test dataset you prepared earlier along with the train and validation dataset, you should make sure this dataset can be correctly loaded when you evaluate the model.
 
-a. To run it on Hyak you will need to prepare the code into a python script.
+### Challenge: Train the CNN on Hyak interactive node.<a name="challenge"></a>
 
-b. Then run it either on interactive node or submit it as batch job. Note that the df_test is the test dataset you prepared earlier along with the train and validation dataset, you should make sure this dataset can be correctly loaded when you evaluate the model.
+The challenge was to manually train CNN using the interactive node. Completing this challenge will give you a better understanding of the batch job logic. 
+  
+a. Get an interactive node on hyak:
+
+You can use command:
+- `srun -p compute -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty/bin/bash`
+
+The above command will allocate a node from the stf partition.
+  
+Alternatively, you can use command:
+- `srun -p ckpt -A stf --nodes=1 --ntasks-per-node=4 --time=2:00:00 --mem=100G --pty /bin/bash`
+
+This allows you to use idle resources from other groups across the cluster using the checkpoint partition.
+
+b. Set the number of threads can be run at same time:
+- `export OMP_NUM_THREADS=4` 
+
+c. Activate the environment you created.
+- `conda activate marco1`
+
+d. run the python script.
+First make sure in your current working directory, there is your marco.py and the folder named marcodata.
+
+Here are 2 options for you to run the python script:
+- Option1: `python3 marco.py > output`
+  - The output from training process will be saved in the file named `output`.
+- Option2: `nohup python3 marco.py > output &`
+  - This will run python script in the background, which allow you to work on any other new command while the script is running.
+  
+e.You will find the model and weights following same way in **step4.e** . The output information will be saved in a file named output.
 
 ## Submission. <a name="submission"></a>
 
 Please submit:
-1. Your python script 
-2. The output file (it should be the output from your python code, not the slurm.out)
+  
+a. Your python scripts. (including `evaluate.py` and `script_evaluate`)
+  
+b. 2 output files. (One for the training, one for the evaluate)
+  - it should be the output from your python code, not the slurm.out
