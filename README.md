@@ -170,7 +170,7 @@ You can use command:
 The above command will allocate a node from the stf partition.
   
 Alternatively, you can use command:
-- `srun -p ckpt -A stf --nodes=1 --ntasks-per-node=4 --time=2:00:00 --mem=100G --pty /bin/bash`
+- `srun -p ckpt -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty /bin/bash`
 
 This allows you to use idle resources from other groups across the cluster using the checkpoint partition.
 
