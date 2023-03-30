@@ -111,7 +111,12 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 - Press `ctrl + D`
   - Exit the current interactive session
 
+The following image shows the details of `script_env` and what the code in it represents.
+
 <img src="./image/Batch_Script.png" style="height: 90%; width: 90%;"/>
+
+For more detail, look at the Batch job section of this web page:
+https://hyak.uw.edu/docs/compute/scheduling-jobs/
 
 #### Step 3-2: Train the CNN as a batch job on Hyak.
 
