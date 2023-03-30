@@ -111,7 +111,7 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 - Press `ctrl + D`
   - Exit the current interactive session
 
-
+<img src="./image/Batch_Script.png" style="height: 90%; width: 90%;"/>
 
 #### Step 3-2: Train the CNN as a batch job on Hyak.
 
@@ -165,7 +165,7 @@ The challenge was to manually train CNN using the interactive node. Completing t
 a. Get an interactive node on hyak:
 
 You can use command:
-- `srun -p compute -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty /bin/bash`
+- `srun -p compute -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty/bin/bash`
 
 The above command will allocate a node from the stf partition.
   
