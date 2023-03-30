@@ -96,6 +96,7 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 - `squeue -u yourusername`
   - Check the job in the queue.
 
+<< insert an image>>
 **Option2: Manual configure the python environment.**
 
 - `srun -p compute -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty/bin/bash`
