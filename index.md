@@ -83,14 +83,16 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 #### Before we start:
 
 - Create your own folder under **/gscratch/scrubbed/[Youruwnetid]** on Hyak.
-
+  - Change Youruwnetid to your own uw-net-id.
 - Upload `marco.py`, `script_env` ,`script`,`evaluate.py` to your folder on Hyak.
 
 - **Scrubbed administrators will scrub files that have not been modified within 21 days. To avoid losing your files and results, make sure to download them to your local machine before this time period ends.**
 
 - Use the following command to get the `marcodata.tar.gz` file to your own folder.
-
+  - Change Youruwnetid to your own uw-net-id.
+ 
 `cp /mmfs1/gscratch/stf/ziyuz/week2/marcodata.tar.gz  /mmfs1/gscratch/scrubbed/[Youruwnetid]/marcodata.tar.gz`
+  
 
 - Unzip the marcodata using the command: `tar -xf ./marcodata.tar.gz`, Make sure you're in the same directory as the `marcodata.tar.gz` before unzipping. After unzipping, you will see a folder named `marcodata`. 
 
