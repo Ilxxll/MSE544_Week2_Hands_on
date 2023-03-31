@@ -86,9 +86,9 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 
 - Upload `marco.py`, `script_env` ,`script`,`evaluate.py` to your folder on Hyak.
 
-- **Scrubbed administrators clean the file that have not been modifiled within 21 days. So if you want to keep your file and result, remember to download them to your local machine in time.**
+- **Scrubbed administrators will scrub files that have not been modified within 21 days. To avoid losing your files and results, make sure to download them to your local machine before this time period ends.**
 
-- Use the following command to get the `marcodata.tar.gz` file.
+- Use the following command to get the `marcodata.tar.gz` file to your own folder.
 
 `cp /mmfs1/gscratch/stf/ziyuz/week2/marcodata.tar.gz  /mmfs1/gscratch/scrubbed/[Youruwnetid]/marcodata.tar.gz`
 
@@ -96,20 +96,27 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 
 #### Step 3-1: Configure the python environment on hyak.
 
-**Configure the python environment as a batch job.**
+you will need to use the slurm script `script_env` to confirgure your python environment as a batch job. The following image provides detailed information on `script_env` and the corresponding code it represents.
 
+<img src="./image/Batch_Script.png" style="height: 90%; width: 90%;"/>
+
+You can now submit your job using this command:
 - `sbatch script_env`
-   - submit the configure environment job.
-- `squeue -u yourusername`
-  - Check the job in the queue.
 
-**Optional: Manual configure the python environment. (After completing the entire hands-on, you can try this method to create your own environment.)**
+If you want to check the status of your job in the queue, use the following command:  
+- `squeue -u yourusername`
+  - Change yourusername to your own user name
+
+For more detail, read the Batch job section of this web page:
+https://hyak.uw.edu/docs/compute/scheduling-jobs/
+
+**Optional: Manual configure the python environment. (Once you have completed the hands-on tutorial, you can try creating your own environment using this method.)**
 - `srun -p compute -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty/bin/bash`
   - You can use command to get an interactive node on hyak:
 - `module load foster/python/miniconda/3.8`
   - This is to load the preinstalled anaconda on Hyak.
-- `conda create -n marco1 keras tensorflow scikit-learn pandas pillow`
-  - This is to create a python environment named marco1 with all needed python packages installed.
+- `conda create -n myenv keras tensorflow scikit-learn pandas pillow`
+  - This is to create a python environment named `myenv` with all needed python packages installed. 
 - `conda init bash`
   - You will need to initiate conda if this is your first time using it on Hyak.
 - `exec bash`
@@ -117,12 +124,8 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 - Press `ctrl + D`
   - Exit the current interactive session
 
-The following image shows the details of `script_env` and what the code in it represents.
-
-<img src="./image/Batch_Script.png" style="height: 90%; width: 90%;"/>
-
-For more detail, look at the Batch job section of this web page:
-https://hyak.uw.edu/docs/compute/scheduling-jobs/
+For more detail, read this web page:
+https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#create-env-from-file
 
 #### Step 3-2: Train the CNN as a batch job on Hyak.
 
@@ -142,6 +145,16 @@ Now you have your python code, the python environment and the data you need. Now
 
 - `sbatch script`
 
+#### c. Check your submitted job in the queue:
+  
+- `squeue -u yourusername`
+
+#### d. Get your output.
+  
+The CNN model your constructed in marco.py will be saved under the folder `/models` in your current working directory, named `marco.h5`. As the training process going on, you can find the weights of your models saved under the same folder as well. They are named as `marco+number of epoch+validation accuracy+’.hdf5`
+
+Additional resource about node setting: https://hyak.uw.edu/docs/compute/scheduling-jobs
+
 **Troubleshooting:**
 
 When run it as batch job, if in the slurm output you see error:
@@ -150,17 +163,6 @@ Traceback (most recent call last):
 File "marco.py", line 1, in <module>
 from tensorflow.keras.callbacks import ReduceLROnPlateau,ModelCheckpoint
 ModuleNotFoundError: No module named 'tensorflow'
-  
-#### c. Check your submitted job in the queue:
-  
-- `squeue -u yourusername`
-  - Change yourusername to your own user name
-
-#### d. Get your output.
-  
-The CNN model your constructed in marco.py will be saved under the folder `/models` in your current working directory, named `marco.h5`. As the training process going on, you can find the weights of your models saved under the same folder as well. They are named as `marco+number of epoch+validation accuracy+’.hdf5`
-
-Additional resource about node setting: https://hyak.uw.edu/docs/compute/scheduling-jobs
 
 ### Step 4: Evaluate the model.<a name="step4"></a>
 
