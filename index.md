@@ -112,7 +112,7 @@ If you want to check the status of your job in the queue, use the following comm
 For more detail, read the Batch job section of this web page:
 https://hyak.uw.edu/docs/compute/scheduling-jobs/
 
-**Optional: Manual configure the python environment. **
+**Optional: Manual configure the python environment.**
 
 **(Once you have completed the hands-on tutorial, you can try creating your own environment using this method.)** 
 
