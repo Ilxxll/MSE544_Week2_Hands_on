@@ -110,7 +110,10 @@ If you want to check the status of your job in the queue, use the following comm
 For more detail, read the Batch job section of this web page:
 https://hyak.uw.edu/docs/compute/scheduling-jobs/
 
-**Optional: Manual configure the python environment. (Once you have completed the hands-on tutorial, you can try creating your own environment using this method.)**
+**Optional: Manual configure the python environment. **
+
+**(Once you have completed the hands-on tutorial, you can try creating your own environment using this method.)** 
+
 - `srun -p compute -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty/bin/bash`
   - You can use command to get an interactive node on hyak:
 - `module load foster/python/miniconda/3.8`
