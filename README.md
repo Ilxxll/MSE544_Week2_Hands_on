@@ -78,6 +78,8 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 
 **Here you need to transferred the evaluate part to a script file `evaluate.py` by yourself.**
 
+Hint: Remember to load the python packages, change the directory, and load the test dataset(df_test) in the correct data type (string).
+
 ### Step 3: Train the CNN as a batch job on Hyak.<a name="step3"></a>
 
 #### Before we start:
@@ -100,7 +102,7 @@ To train the CNN on Hyak, you will need to copy the code from the jupyter notebo
 
 you will need to use the slurm script `script_env` to confirgure your python environment as a batch job. The following image provides detailed information on `script_env` and the corresponding code it represents.
 
-<img src="./image/Batch_Script_1.png" style="height: 90%; width: 90%;"/>
+<img src="./image/Batch_Script.png" style="height: 90%; width: 90%;"/>
 
 You can now submit your job using this command:
 - `sbatch script_env`
@@ -116,7 +118,7 @@ https://hyak.uw.edu/docs/compute/scheduling-jobs/
 
 **(Once you have completed the hands-on tutorial, you can try creating your own environment using this method.)** 
 
-- `srun -p compute -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty /bin/bash`
+- `srun -p compute -A stf --nodes=1 --ntasks-per-node=40 --time=2:00:00 --mem=100G --pty/bin/bash`
   - You can use command to get an interactive node on hyak:
 - `module load foster/python/miniconda/3.8`
   - This is to load the preinstalled anaconda on Hyak.
